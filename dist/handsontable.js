@@ -3,17 +3,17 @@
  * Handsontable is a JavaScript library for editable tables with basic copy-paste compatibility with Excel and Google Docs
  *
  * Copyright (c) 2012-2014 Marcin Warpechowski
- * Copyright 2015 Handsoncode sp. z o.o. <hello@handsontable.com>
+ * Copyright 2016 Handsoncode sp. z o.o. <hello@handsontable.com>
  * Licensed under the MIT license.
  * http://handsontable.com/
  *
- * Date: Fri Oct 02 2015 12:37:12 GMT+0200 (CEST)
+ * Date: Fri Jan 01 2016 20:51:50 GMT-0600 (CST)
  */
 /*jslint white: true, browser: true, plusplus: true, indent: 4, maxerr: 50 */
 
 window.Handsontable = {
   version: '0.19.0',
-  buildDate: 'Fri Oct 02 2015 12:37:12 GMT+0200 (CEST)',
+  buildDate: 'Fri Jan 01 2016 20:51:50 GMT-0600 (CST)',
 };
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Handsontable = f()}})(function(){var define,module,exports;return (function init(modules, cache, entry) {
   (function outer (modules, cache, entry) {
@@ -2813,7 +2813,7 @@ var WalkontableTable = function WalkontableTable(wotInstance, table) {
       if (trimmingElement === window) {
         this.holder.style.overflow = 'visible';
         this.wtRootElement.style.overflow = 'visible';
-      } else {
+      } else if (trimmingElement.className.indexOf('handsontable') != -1) {
         this.holder.style.width = getStyle(trimmingElement, 'width');
         this.holder.style.height = getStyle(trimmingElement, 'height');
         this.holder.style.overflow = '';
@@ -3528,7 +3528,6 @@ var WalkontableViewport = function WalkontableViewport(wotInstance) {
     var width;
     var totalColumns = this.instance.getSetting('totalColumns');
     var trimmingContainer = this.instance.wtOverlays.leftOverlay.trimmingContainer;
-    var overflow;
     var stretchSetting = this.instance.getSetting('stretchH');
     var docOffsetWidth = document.documentElement.offsetWidth;
     if (Handsontable.freezeOverlays) {
@@ -3538,12 +3537,6 @@ var WalkontableViewport = function WalkontableViewport(wotInstance) {
     }
     if (trimmingContainer === window && totalColumns > 0 && this.sumColumnWidths(0, totalColumns - 1) > width) {
       return document.documentElement.clientWidth;
-    }
-    if (trimmingContainer !== window) {
-      overflow = getStyle(this.instance.wtOverlays.leftOverlay.trimmingContainer, 'overflow');
-      if (overflow == 'scroll' || overflow == 'hidden' || overflow == 'auto') {
-        return Math.max(width, trimmingContainer.clientWidth);
-      }
     }
     if (stretchSetting === 'none' || !stretchSetting) {
       return Math.max(width, outerWidth(this.instance.wtTable.TABLE));

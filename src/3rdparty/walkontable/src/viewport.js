@@ -63,7 +63,6 @@ class WalkontableViewport {
     let width;
     let totalColumns = this.instance.getSetting('totalColumns');
     let trimmingContainer = this.instance.wtOverlays.leftOverlay.trimmingContainer;
-    let overflow;
     let stretchSetting = this.instance.getSetting('stretchH');
     let docOffsetWidth = document.documentElement.offsetWidth;
 
@@ -79,16 +78,6 @@ class WalkontableViewport {
       // this is used in `scroll_window.html`
       // TODO test me
       return document.documentElement.clientWidth;
-    }
-
-    if (trimmingContainer !== window) {
-      overflow = getStyle(this.instance.wtOverlays.leftOverlay.trimmingContainer, 'overflow');
-
-      if (overflow == 'scroll' || overflow == 'hidden' || overflow == 'auto') {
-        // this is used in `scroll.html`
-        // TODO test me
-        return Math.max(width, trimmingContainer.clientWidth);
-      }
     }
 
     if (stretchSetting === 'none' || !stretchSetting) {

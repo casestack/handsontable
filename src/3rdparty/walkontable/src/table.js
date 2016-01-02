@@ -161,7 +161,7 @@ class WalkontableTable {
       if (trimmingElement === window) {
         this.holder.style.overflow = 'visible';
         this.wtRootElement.style.overflow = 'visible';
-      } else {
+      } else if (trimmingElement.className.indexOf('handsontable') != -1) {
         this.holder.style.width = getStyle(trimmingElement, 'width');
         this.holder.style.height = getStyle(trimmingElement, 'height');
         this.holder.style.overflow = '';

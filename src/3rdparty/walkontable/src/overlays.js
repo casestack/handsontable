@@ -286,6 +286,10 @@ class WalkontableOverlays {
     }
 
     if (target === master) {
+      if (target.className.contains('widget-body')) {
+        return;
+      }
+
       tempScrollValue = getScrollLeft(target);
 
       // if scrolling the master table - populate the scroll values to both top and left overlays
